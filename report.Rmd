@@ -1,0 +1,37 @@
+---
+title: "report"
+author: "Billy Koech"
+date: "10/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(sf)
+library(tidyverse)
+
+```
+
+## Something about mapping
+
+```{r}
+# import data
+
+download.file("https://stacks.stanford.edu/file/druid:hp256wp2687/hp256wp2687_ct_hartford_2019_08_13.rds", "hartford.rds")
+
+
+
+
+```
+
+
+```{r}
+
+# read in data
+
+x <- read_rds("hartford.rds")
+
+```
+
+
+
