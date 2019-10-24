@@ -21,16 +21,46 @@ download.file("https://stacks.stanford.edu/file/druid:hp256wp2687/hp256wp2687_ct
 
 
 
+# import shape file
+
+download.file("https://stacks.stanford.edu/file/druid:hp256wp2687/hp256wp2687_ct_hartford_shapefiles_2019_08_13.tgz", "hartford.tgz")
+
+
+
 
 ```
 
 
 ```{r}
-
 # read in data
 
 x <- read_rds("hartford.rds")
 
+
+target_data <- x %>% 
+  filter(officer_id_hash == "09739d95d7") %>% 
+  filter(arrest_made) %>% 
+  drop_na("lat", "lng")
+
+# decompress the tgz file
+untar("hartford.tgz")
+
+# read in the sahpe fil e
+
+
+shape_file <- st_read("ct_hartford_shapefiles/Hartford_Neighborhoods.shp")
+```
+
+
+```{r}
+
+# conert to sf
+sf_version <- st_as_sf(target_data, coords = c("lng","lat"), crs = 4326)
+
+
+ggplot(shape_file) +
+  geom_sf(data = shape_file) +
+  geom_sf(data = sf_version)
 ```
 
 
